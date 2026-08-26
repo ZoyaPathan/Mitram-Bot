@@ -1,22 +1,27 @@
 from fastapi import FastAPI
 
+from backend.app.config import settings
+
 
 app = FastAPI(
-    title="MITRAM Bot Backend",
+    title=settings.app_name,
     description="Backend API for the MITRAM elderly care robot",
-    version="1.0.0",
+    version=settings.app_version,
 )
 
 
 @app.get("/")
 def root():
     return {
-        "message": "MITRAM Bot Backend is running!"
+        "message": "MITRAM Bot Backend is running!",
+        "bot_id": settings.bot_id,
+        "environment": settings.environment,
     }
 
 
 @app.get("/health")
 def health_check():
     return {
-        "status": "healthy"
+        "status": "healthy",
+        "bot_id": settings.bot_id,
     }
