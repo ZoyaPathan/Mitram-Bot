@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from backend.app.config import settings
+from backend.app.database import engine
 
 
 app = FastAPI(
@@ -21,7 +22,16 @@ def root():
 
 @app.get("/health")
 def health_check():
+    database_status = "connected"
+
+    try:
+        connection = engine.connect()
+        connection.close()
+    except Exception:
+        database_status = "disconnected"
+
     return {
         "status": "healthy",
         "bot_id": settings.bot_id,
+        "database": database_status,
     }
