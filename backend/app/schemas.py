@@ -13,5 +13,14 @@ class BotRegisterResponse(BaseModel):
     bot_id: str
     name: str
     status: str
+    last_seen: datetime | None
     created_at: datetime
     updated_at: datetime
+
+
+class BotStatusResponse(BaseModel):
+    id: int
+    bot_id: str
+    name: str
+    status: str
+    last_seen: datetime | None
