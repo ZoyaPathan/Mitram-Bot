@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from backend.app.config import settings
 from backend.app.database import Base, engine
 from backend.app.models import Bot
+from backend.app.routers.devices import router as devices_router
 
 
 Base.metadata.create_all(bind=engine)
@@ -13,6 +14,9 @@ app = FastAPI(
     description="Backend API for the MITRAM elderly care robot",
     version=settings.app_version,
 )
+
+
+app.include_router(devices_router)
 
 
 @app.get("/")
